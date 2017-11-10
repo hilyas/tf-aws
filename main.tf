@@ -16,10 +16,13 @@ resource "aws_security_group" "instance" {
     protocol     = "tcp"
     cidr_blocks  = ["0.0.0.0/0"]
   }
-
+  
+  lifecycle {
+    create_before_destory = true
+  }
 }
 
-resource "aws_instance" "example" {
+resource "aws_launch_configuration" "example" {
   ami           = "ami-40d28157"
   instance_type = "t2.micro"
   vpc_security_group_ids = ["${aws_security_group.instance.id}"]
@@ -30,8 +33,22 @@ resource "aws_instance" "example" {
               nohup busybox httpd -f -p "${var.server_port}" &
               EOF
 
-  tags {
-    Name = "tf-playground"
+  lifecycle {
+    create_before_destory = true
+  }
+}
+
+resource "aws_autoscaling_group" "example" {
+  aws_launch_configuration = "${aws_launch_configuration.example.id}"
+  availability_zones = ["${data.aws_availability_zones.all.names}"]
+
+  min_size = 2
+  max_size = 10
+
+  tag {
+    key       = "Name"
+    value     = "tf-asg-example"
+    propagate_at_launch = true
   }
 }
 
