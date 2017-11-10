@@ -2,6 +2,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
+variable "server_port" {
+  description = "The port used for http requests"
+  default = 8080
+}
+
 resource "aws_security_group" "instance" {
   name = "tf-playground-instance"
 
