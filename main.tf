@@ -18,7 +18,7 @@ resource "aws_security_group" "instance" {
   }
   
   lifecycle {
-    create_before_destory = true
+    create_before_destroy = true
   }
 }
 
@@ -34,7 +34,7 @@ resource "aws_launch_configuration" "example" {
               EOF
 
   lifecycle {
-    create_before_destory = true
+    create_before_destroy = true
   }
 }
 
