@@ -100,7 +100,7 @@ resource "aws_elb" "example" {
 
 
 output "elb_dns_name" {
-  value = "${aws_elb.example.elb_dns_name}"
+  value = "${aws_elb.example.dns_name}"
 }
 
 
