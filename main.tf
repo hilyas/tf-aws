@@ -2,6 +2,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
+data "aws_availability_zones" "all" {
+  
+}
+
 variable "server_port" {
   description = "The port used for http requests"
   default = 8080
@@ -39,7 +43,7 @@ resource "aws_launch_configuration" "example" {
 }
 
 resource "aws_autoscaling_group" "example" {
-  aws_launch_configuration = "${aws_launch_configuration.example.id}"
+  launch_configuration = "${aws_launch_configuration.example.id}"
   availability_zones = ["${data.aws_availability_zones.all.names}"]
 
   min_size = 2
@@ -52,8 +56,8 @@ resource "aws_autoscaling_group" "example" {
   }
 }
 
-output "public_ip" {
-  value = "${aws_instance.example.public_ip}"
-}
+# output "public_ip" {
+#   value = "${aws_instance.example.public_ip}"
+# }
 
 
