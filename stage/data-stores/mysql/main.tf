@@ -4,12 +4,10 @@ provider "aws" {
 
 terraform {
     backend "s3" {
-        config {
-              bucket = "tf-playground-state"
-              key = "stage/data-stores/mysql/terraform.tfstate"
-              region = "us-east-1"
-              encrypt = true
-          }
+        bucket = "tf-playground-state"
+        key = "stage/data-stores/mysql/terraform.tfstate"
+        region = "us-east-1"
+        encrypt = true
     }
 }
 
