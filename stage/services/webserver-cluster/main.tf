@@ -4,6 +4,15 @@ provider "aws" {
 
 data "aws_availability_zones" "all" {}
 
+terraform {
+    backend "s3" {
+        bucket = "tf-playground-state"
+        key = "stage/services/webserver-cluster/terraform.tfstate"
+        region = "us-east-1"
+        encrypt = true
+    }
+}
+
 data "terraform_remote_state" "db" {
     backend = "s3" 
     
@@ -11,15 +20,6 @@ data "terraform_remote_state" "db" {
       bucket = "tf-playground-state"
       key = "stage/data-stores/mysql/terraform.tfstate"
       region = "us-east-1"
-    }
-}
-
-terraform {
-    backend "s3" {
-        bucket = "tf-playground-state"
-        key = "stage/services/webserver-cluster/terraform.tfstate"
-        region = "us-east-1"
-        encrypt = true
     }
 }
 
