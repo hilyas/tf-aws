@@ -1,0 +1,16 @@
+# Configure terragrunt to automatically store tfstate files in s3
+terragrunt {
+    remote_state = {
+        backend = "s3"
+
+        config {
+            bucket = "tf-playground-state"
+            key = "global/s3/terraform.tfstate"
+            region = "us-east-1"
+            encrypt = true
+
+            lock_table = "tf-playground-lock-table"
+        }
+    }
+}
+
