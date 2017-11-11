@@ -16,12 +16,10 @@ data "terraform_remote_state" "db" {
 
 terraform {
     backend "s3" {
-        config {
-              bucket = "tf-playground-state"
-              key = "stage/services/webserver-cluster/terraform.tfstate"
-              region = "us-east-1"
-              encrypt = true
-          }
+        bucket = "tf-playground-state"
+        key = "stage/services/webserver-cluster/terraform.tfstate"
+        region = "us-east-1"
+        encrypt = true
     }
 }
 
