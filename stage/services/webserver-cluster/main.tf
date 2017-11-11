@@ -4,6 +4,16 @@ provider "aws" {
 
 data "aws_availability_zones" "all" {}
 
+data "terraform_remote_state" "db" {
+    backend "s3" 
+    
+    config {
+      bucket = "tf-playground-state"
+      key = "stage/data-stores/mysql/terraform.tfstate"
+      region = "us-east-1"
+    }
+}
+
 terraform {
     backend "s3" {
         config {
