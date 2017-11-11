@@ -5,7 +5,7 @@ provider "aws" {
 data "aws_availability_zones" "all" {}
 
 data "terraform_remote_state" "db" {
-    backend "s3" 
+    backend = "s3" 
     
     config {
       bucket = "tf-playground-state"
